@@ -1,0 +1,47 @@
+#include <Servo.h>
+#include <NewPing.h>
+Servo garra;
+#define TRIGGER_PIN  6 
+#define ECHO_PIN     5 
+
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN);
+
+void setup() {
+  Serial.begin(9600);
+  garra.attach(11);
+  
+}
+
+void loop() {
+  delay(50);
+  Serial.println(sonar.ping_cm());
+  long distancia = sonar.ping_cm();
+
+  abreGarra(distancia);
+  fechaGarra(distancia);
+  
+}
+
+void abreGarra(long distancia){
+  if(distancia <= 7){
+     garra.write(90);
+  }
+ 
+}
+
+void fechaGarra(long distancia){
+  if(distancia >= 6){
+     garra.write(180);
+  }
+ 
+}
+
+/*void paraBase(long distancia){
+  if(distancia <= 8){
+   
+  }
+
+
+}
+*/
